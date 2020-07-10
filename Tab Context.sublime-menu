@@ -1,0 +1,55 @@
+[
+	{"caption": "-", "id": "tab_file_manager"},
+	{
+		"caption": "Clone File",
+		"command": "tab_bar_clone_file",
+		"args": { "group": -1, "index": -1 }
+	},
+	{
+		"caption": "Copy File",
+		"command": "tab_bar_copy_file",
+		"args": { "group": -1, "index": -1 }
+	},
+	{
+		"caption": "Move File",
+		"command": "tab_bar_move_file",
+		"args": { "group": -1, "index": -1 }
+	},
+	{
+		"caption": "Delete File",
+		"command": "tab_bar_delete_file",
+		"args": { "group": -1, "index": -1 }
+	},
+	{
+		"caption": "Rename File",
+		"command": "tab_bar_rename_file",
+		"args": { "group": -1, "index": -1 }
+	},
+	{
+		"caption": "Save File",
+		"command": "tab_bar_save_file",
+		"args": { "group": -1, "index": -1 }
+	},
+	{
+		"caption": "Copy File Name",
+		"command": "tab_bar_copy_file_name",
+		"args": { "group": -1, "index": -1 }
+	},
+	{
+		"caption": "Copy File Path",
+		"command": "tab_bar_copy_file_path",
+		"args": { "group": -1, "index": -1 }
+	},
+
+	{"caption": "-", "id": "tab_folder"},
+	{
+		"caption": "New File in Folder…",
+		"command": "tab_bar_new_file",
+		"args": { "group": -1, "index": -1 }
+	},
+	{
+		"caption": "Open Containing Folder…",
+		"command": "tab_bar_open_contained_folder",
+		"args": { "group": -1, "index": -1 }
+	}
+]

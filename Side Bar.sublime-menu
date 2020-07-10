@@ -1,0 +1,34 @@
+[
+	// {"caption": "-"},
+	{
+		"caption": "Copy…",
+		"command": "side_bar_copy_files",
+		"args": {"paths": []}
+	},
+	{
+		"caption": "Move…",
+		"command": "side_bar_move_files",
+		"args": {"paths": []}
+	},
+	{
+		"caption": "Paste…",
+		"command": "side_bar_paste_files",
+		"args": {"paths": []}
+	},
+	{
+		"caption": "Open Files",
+		"command": "side_bar_open_mult_files",
+		"args": {"paths": []}
+	},
+	{
+		"caption": "Open Folder",
+		"command": "side_bar_open_folder",
+		"args": {"paths": []}
+	},
+	{
+		"caption": "Open Terminal Here",
+		"command": "side_bar_open_terminal_here",
+		"args": {"paths": []}
+	},
+	{"caption": "-"}
+]
