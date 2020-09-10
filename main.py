@@ -13,11 +13,11 @@ from Default import send2trash
 
 class Loger:
     debug = False
-    employer = "SuperMenus"
+    employer = __package__
 
     def print(*args):
         if Loger.debug:
-            print("SuperMenus:", *args)
+            print('%s:' % Loger.employer, *args)
 
     def error(errmsg):
         sublime.error_message(errmsg)
@@ -55,6 +55,13 @@ class Loger:
         thread = threading.Thread(target=function)
         thread.start()
         check(sublime.active_window().active_view(), 0, -1)
+
+
+class SublimeFileToolsToggleDebugCommand(sublime_plugin.WindowCommand):
+    def run(self):
+        Loger.debug = not Loger.debug
+        print('%s: debug: %s' %(Loger.employer,  str(Loger.debug)))
+        # maybe save to settings file.
 
 
 class SideBarOpenTerminalHereCommand(sublime_plugin.WindowCommand):

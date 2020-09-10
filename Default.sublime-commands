@@ -1,0 +1,6 @@
+[
+    {
+        "caption": "SublimeFileTools: Toggle Debug",
+        "command": "sublime_file_tools_toggle_debug"
+    }
+]
