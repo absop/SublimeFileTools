@@ -96,10 +96,6 @@ class SideBarOpenFolderCommand(sublime_plugin.WindowCommand):
         self.window.run_command("open_dir", {"dir": paths[0]})
 
 
-class SidebarTreeCommand(sublime_plugin.TextCommand):
-    pass
-
-
 class SideBarPasteFilesCommand(sublime_plugin.WindowCommand):
     words = None
     enabled = False

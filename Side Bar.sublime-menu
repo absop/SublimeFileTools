@@ -1,5 +1,4 @@
 [
-	// {"caption": "-"},
 	{
 		"caption": "Copy…",
 		"command": "side_bar_copy_files",
@@ -20,6 +19,7 @@
 		"command": "side_bar_open_mult_files",
 		"args": {"paths": []}
 	},
+	{"caption": "-", "id": "folder_menus"},
 	{
 		"caption": "Open Folder",
 		"command": "side_bar_open_folder",
@@ -29,6 +29,5 @@
 		"caption": "Open Terminal Here",
 		"command": "side_bar_open_terminal_here",
 		"args": {"paths": []}
-	},
-	{"caption": "-"}
+	}
 ]
