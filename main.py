@@ -58,31 +58,43 @@ class Loger:
 
 
 class OpenContextPathCommand(sublime_plugin.TextCommand):
-    def run(self, edit, event):
-        if os.path.isfile(self.path):
-            self.view.window().open_file(self.path)
-        elif os.path.isdir(self.path):
-            self.view.window().run_command("open_dir", {"dir": self.path})
+    def run(self, edit, event=None):
+        if event is None:
+            paths = set()
+            for sel in self.view.sel():
+                if self.find_path(sel):
+                    paths.add(self.path)
+            for path in paths:
+                self.open_path(path)
+        else:
+            self.open_path(self.path)
+
+    def open_path(self, path):
+        if os.path.isfile(path):
+            Loger.print("open file: " + path)
+            self.view.window().open_file(path)
+        elif os.path.isdir(path):
+            Loger.print("open dir: " + path)
+            self.view.window().run_command("open_dir", {"dir": path})
 
     def is_visible(self, event):
         return self.path is not None
 
-    def find_path(self, event):
-        view = self.view
-        if view.has_non_empty_selection_region():
-            selected = view.sel()[0]
-            selected_content = view.substr(selected)
-        else:
-            pt = view.window_to_text((event["x"], event["y"]))
-            selected_content = view.substr(view.extract_scope(pt))
+    def find_path(self, region):
+        if isinstance(region, sublime.Region) and region.empty():
+            region = region.a
+        if isinstance(region, int):
+            region = self.view.extract_scope(region)
+
+        selected_content = self.view.substr(region)
         path = selected_content.strip('\'"')
         if os.path.exists(path):
             self.path = path
             return path
-        elif view.file_name():
-            dirname = os.path.dirname(view.file_name())
+        elif self.view.file_name():
+            dirname = os.path.dirname(self.view.file_name())
             file = path.lstrip('\\/')
-            path = os.path.join(dirname, file)
+            path = os.path.join(dirname, file).replace('\\', '/')
             if file and os.path.exists(path):
                 self.path = path
                 return file
@@ -90,7 +102,11 @@ class OpenContextPathCommand(sublime_plugin.TextCommand):
 
     def description(self, event):
         self.path = None
-        file = self.find_path(event)
+        if self.view.has_non_empty_selection_region():
+            region = self.view.sel()[0]
+        else:
+            region = self.view.window_to_text((event["x"], event["y"]))
+        file = self.find_path(region)
         if file is not None:
             if os.path.isfile(self.path):
                 open_cmd = "Open File: "
