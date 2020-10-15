@@ -57,6 +57,54 @@ class Loger:
         check(sublime.active_window().active_view(), 0, -1)
 
 
+class OpenContextPathCommand(sublime_plugin.TextCommand):
+    def run(self, edit, event):
+        if os.path.isfile(self.path):
+            self.view.window().open_file(self.path)
+        elif os.path.isdir(self.path):
+            self.view.window().run_command("open_dir", {"dir": self.path})
+
+    def is_visible(self, event):
+        return self.path is not None
+
+    def find_path(self, event):
+        view = self.view
+        if view.has_non_empty_selection_region():
+            selected = view.sel()[0]
+            selected_content = view.substr(selected)
+        else:
+            pt = view.window_to_text((event["x"], event["y"]))
+            selected_content = view.substr(view.extract_scope(pt))
+        path = selected_content.strip('\'"')
+        if os.path.exists(path):
+            self.path = path
+            return path
+        elif view.file_name():
+            dirname = os.path.dirname(view.file_name())
+            file = path.lstrip('\\/')
+            path = os.path.join(dirname, file)
+            if file and os.path.exists(path):
+                self.path = path
+                return file
+        return None
+
+    def description(self, event):
+        self.path = None
+        file = self.find_path(event)
+        if file is not None:
+            if os.path.isfile(self.path):
+                open_cmd = "Open File: "
+            elif os.path.isdir(self.path):
+                open_cmd = "Open Folder: "
+            if len(file) > 56:
+                file = file[0:56] + "..."
+            return open_cmd + file
+        return ""
+
+    def want_event(self):
+        return True
+
+
 class SublimeFileToolsToggleDebugCommand(sublime_plugin.WindowCommand):
     def run(self):
         Loger.debug = not Loger.debug
